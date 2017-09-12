@@ -21,7 +21,7 @@ function import_background() {
 
 
 function import_object() {
-    var texture = new THREE.ImageUtils.loadTexture('textures/metal.jpg');
+    var texture = new THREE.ImageUtils.loadTexture('img/metal.jpg');
 
     var geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
     var material = new THREE.MeshBasicMaterial( { map: texture } );
