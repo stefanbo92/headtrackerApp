@@ -25,8 +25,12 @@ function import_object() {
 
     var geometry = new THREE.BoxBufferGeometry( 2, 2, 2 );
     var material = new THREE.MeshBasicMaterial( { map: texture } );
+
     var cube1 = new THREE.Mesh( geometry, material );
     cube1.position.set(5,5,-10);
-
     scene.add( cube1 );
+
+    var cube2 = new THREE.Mesh( geometry, material );
+    cube2.position.set(-5,-5,-10);
+    scene.add( cube2 );
 }
