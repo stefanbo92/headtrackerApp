@@ -1,7 +1,4 @@
-
-<h1>Welcome to the Headtracker Web App</h1>
-
-<br /> <br /> <br />
+Welcome to the Headtracker Web App
 
 <form action="https://github.com/stefanbo92">
     <input type="submit" value="github" title="best github repo"/>
