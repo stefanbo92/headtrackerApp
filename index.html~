@@ -5,7 +5,7 @@ input {
 </style>
 <h1>Welcome to the Headtracker Web App</h1>
 
-<br /> <br /> 
+<br /> <br /> <br />
 
 <form action="threeTest.html">
     <input type="submit" value="Start Headtracking App" title="Headtracking" />
