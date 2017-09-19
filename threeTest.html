@@ -15,7 +15,7 @@
 		<button type='button' id="startTracking" >activate headtracking</button>
 		<button type='button' id="startRotation" >activate rotations</button>
 		<script src="js/three.js"></script>
-		<script src="js/Geometry.js"></script>
+		<script src="js/Geometry.js?v=1"></script>
 		<script src="js/OrbitControls.js"></script>
 		<script src="js/headtrackr.js"></script>
 		<canvas id="inputCanvas" width="320" height="240" style="display:none"></canvas>
@@ -99,6 +99,7 @@
 			// three.js init stuff
 			var scene = new THREE.Scene();
 			var camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 1000 );
+			camera.position.z = 5;
 
 			var renderer = new THREE.WebGLRenderer();
 			renderer.setClearColor(0xffffff);
@@ -107,13 +108,20 @@
 
 			// make cube
 			var textureMetal = new THREE.ImageUtils.loadTexture('img/metal.jpg');
-			var geometry = new THREE.BoxGeometry( 1, 2, 3 );
+			var geometry = new THREE.BoxGeometry( 1, 1, 2 );
 			var material = new THREE.MeshBasicMaterial( { map: textureMetal } );
 			var cube = new THREE.Mesh( geometry, material );
+			cube.position.set(0,0,-1);
 			scene.add( cube );
 
-			camera.position.z = 5;
-
+			//make can
+			var textureCan = new THREE.ImageUtils.loadTexture('img/cokecan.jpg');
+			var geometryCan = new THREE.CylinderGeometry(0.25, 0.25, 1, 32 );
+			var materialCan = new THREE.MeshBasicMaterial( { map: textureCan } );
+			var can = new THREE.Mesh( geometryCan, materialCan );
+			can.position.set(0,0,-5);
+			scene.add( can );
+			
 			// add light
 		  	var ambient_light = new THREE.AmbientLight(0xffffff, 0.5);
 		    	scene.add(ambient_light);
@@ -122,26 +130,27 @@
 
 			// add mouse controls 
 			var controls = new THREE.OrbitControls(camera, renderer.domElement);
-			controls.center.set(0, 0, 0);
+			controls.target.set(0, 0, 0);
 			controls.update(); 
 
 			//update camera position according to headtracking
 			function updateCamera () {
 				if(trackingOn){
-					camera.position.x = (0.5-camPos[0]/320)*5;
-				   	camera.position.y = (0.5-camPos[1]/240)*5;
+					camera.position.x = (0.5-camPos[0]/320)*10;
+				   	camera.position.y = (0.5-camPos[1]/240)*10;
 				}
 				if(rotationOn) {camera.rotation.y =(camPos[3]-Math.PI/2)*2;}
 			}
 
-			// GEOMETRY
-			import_background();
-			import_object();
+			// make environment
+			import_room();
+			import_objects();
 
 			//render loop
 			function animate() {
 				requestAnimationFrame( animate );
-				cube.rotation.x += 0.01;
+				cube.rotation.y += 0.01;
+				can.rotation.y += 0.01;
 				updateCamera();
 				renderer.render( scene, camera );
 			}
